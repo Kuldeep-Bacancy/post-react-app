@@ -7,3 +7,8 @@ export const getAllPosts = async () => {
   return response.data
 }
 
+export const getPost = async (postId) => {
+  const response = await axios.get(`${postURL}/${postId}`)
+  return response.data
+}
+
