@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { getPost } from '../../services/posts'
+import { getPost, getPostComments } from '../../services/posts'
 import { useQuery } from '@tanstack/react-query'
 import Loader from '../Loader'
 import Error from '../others/Error'
@@ -12,6 +12,11 @@ function ShowPost() {
   const { data, isPending, isFetching, isLoading, isError, error } = useQuery({
     queryKey: ['post'],
     queryFn: () => getPost(postId)
+  })
+
+  const { data: comments } = useQuery({
+    queryKey: ['comments', postId],
+    queryFn: () => getPostComments(postId)
   })
 
   if (isPending || isFetching || isLoading) return <Loader />
@@ -39,12 +44,21 @@ function ShowPost() {
 
       <div className="flex items-center">
         <div className="mr-4">
-          <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-              d="M12 6v6m0 6V6m0 6h6M12 6H6"></path>
-          </svg>
+          <h2 className="text-xl font-semibold mb-2">Reactions</h2>
           <span className="ml-1">{reactions}</span>
+        </div>
+      </div>
+
+      <div className="mt-4">
+        <h2 className="text-xl font-semibold mb-2">Comments</h2>
+        <div className="border-t border-gray-300 py-2">
+          {/* Map through comments and render each comment */}
+          {comments?.comments?.map((comment) => (
+            <div key={comment.id} className="mb-2">
+              <span className="font-semibold">{comment?.user?.username}</span>
+              <p className="text-gray-600">{comment.body}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>

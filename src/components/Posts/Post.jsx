@@ -1,8 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function Post({ content }) {
+function Post({ content, usersData }) {
   const { id , title, body, userId, tags, reactions } = content
+
+  const user = usersData.find((user) => user?.data?.id == userId )
 
   return (
     <div className="max-w-md bg-white p-8 rounded-md shadow-md" key={id}>
@@ -24,7 +26,7 @@ function Post({ content }) {
       </div>
       <div className="flex items-center text-gray-500 text-sm">
         <span className="mr-2">Reactions: {reactions}</span>
-        <span className="mr-2">Author ID: {userId}</span>
+        <span className="mr-2">Author: {user?.data?.firstName} {user?.data?.lastName}</span>
       </div>
     </div>
   )
