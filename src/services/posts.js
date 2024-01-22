@@ -1,9 +1,10 @@
 import axios from "axios";
 import { postURL } from "../constants";
 
-export const getAllPosts = async (skip) => {
-  const response = await axios.get(`${postURL}?skip=${skip}&limit=20`)
-  return response.data
+export const getAllPosts = async ({ pageParam = 0 }) => {
+  if(pageParam === false) return
+  const response = await axios.get(`${postURL}?skip=${pageParam}&limit=20`)
+  return { ...response.data, prevSkip: pageParam }
 }
 
 export const getPost = async (postId) => {
