@@ -6,7 +6,9 @@ import Layout from './components/others/Layout.jsx'
 import RouterError from './components/others/RouteError.jsx'
 import AllPosts from './components/Posts/AllPosts.jsx'
 import ShowPost from './components/Posts/ShowPost.jsx'
+import NewPost from './components/Posts/NewPost.jsx'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
 
 const queryClient = new QueryClient()
 
@@ -15,6 +17,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<Layout />} errorElement={<RouterError />}>
       <Route path="" element={<AllPosts />} />
       <Route path='/posts/:postId' element={<ShowPost/>} />
+      <Route path="/new-post" element={<NewPost/>} />
     </Route>
   )
 )
