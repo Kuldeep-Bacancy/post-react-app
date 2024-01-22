@@ -1,8 +1,8 @@
 import axios from "axios";
 import { postURL } from "../constants";
 
-export const getAllPosts = async () => {
-  const response = await axios.get(postURL)
+export const getAllPosts = async (skip) => {
+  const response = await axios.get(`${postURL}?skip=${skip}&limit=20`)
   return response.data
 }
 
@@ -18,7 +18,6 @@ export const createPost = async (data) => {
     }
   }
   const response = await axios.post(`${postURL}/add`, data, config)
-  console.log("create post response", response);
   return response.data
 }
 
