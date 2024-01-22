@@ -35,6 +35,11 @@ function NewPost() {
   
   return (
     <div className="max-w-2xl mx-auto mt-8 p-8 bg-white shadow-md">
+      <ul className='mb-3'>
+        <span>Notes:</span>
+        <li className='text-red-400'>Adding a new post will not add it into the server.We have used dummy server</li>
+        <li className='text-red-400'>It will simulate a POST request and will return the new created post with a new id</li>
+      </ul>
       <form onSubmit={handleSubmit(submitHandler)}>
         <div className="mb-4">
           <label htmlFor="title" className="block text-gray-700 text-sm font-bold mb-2">Title:</label>
