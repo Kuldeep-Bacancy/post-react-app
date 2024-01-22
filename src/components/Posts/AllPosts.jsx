@@ -18,23 +18,19 @@ function AllPosts() {
     queryKey: ['posts'],
     queryFn: getAllPosts,
     getNextPageParam(lastPage) {
-      if(lastPage.prevSkip + 20 > lastPage.total){
+      if(lastPage?.prevSkip + 20 > lastPage?.total){
         return false
       }
-      return lastPage.prevSkip + 20
+      return lastPage?.prevSkip + 20
     }
   })
 
 
   const posts = data?.pages.reduce((acc, page) => {
-    return [...acc, ...page.posts]
+    return [...acc, ...page?.posts]
   }, [])
 
   const authorIds = posts?.map((post) => post.userId)
-
-  const postIds = posts?.map((post) => post.id )
-
-  const lastPostId = postIds && postIds.length > 0 ? postIds[postIds.length - 1] : undefined; 
   
   const usersData = useQueries({
     queries: authorIds
@@ -46,18 +42,6 @@ function AllPosts() {
       })
       : [], // if users is undefined, an empty array will be returned
   })
-
-  const loadPreviousPosts = () => {
-    if (skipPost >= 20) {
-      setSkipPost(skipPost - 20);
-    }
-  };
-
-  const loadNextPosts = () => {
-    if (lastPostId !== undefined) {
-      setSkipPost(lastPostId);
-    }
-  };
 
   if (isError) return <Error message={error.message} />
 
