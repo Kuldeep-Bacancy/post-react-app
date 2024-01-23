@@ -23,7 +23,7 @@ function TodoList({ todos }) {
       {
         todos?.map((todo) => {
           return (
-            <li className="flex justify-between items-center p-2 border-b" key={todo.id}>
+            <li className={`flex justify-between items-center p-2 border-b ${deleteTodoMutation.isPending ? 'opacity-40' : '' }`} key={todo.id}>
               <span className="flex-grow">{todo.content}</span>
               <button className="px-3 py-2 text-xs font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" onClick={() => deleteHandler(todo.id)}>Delete</button>
             </li>
