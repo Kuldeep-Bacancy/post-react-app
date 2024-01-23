@@ -7,10 +7,12 @@ import AddTodo from './AddTodo'
 import TodoList from './TodoList'
 
 function AllTodos() {
-  const { data: todos, isError, isFetching, isPending, isLoading } = useQuery({
+  const { data: todos, isError, isFetching, isPending, isLoading, error } = useQuery({
     queryKey: ['todos'],
     queryFn: getTodos
   })
+
+  console.log("error", error);
 
   if (isFetching || isLoading || isPending) return <Loader />
 
