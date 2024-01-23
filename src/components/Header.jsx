@@ -22,6 +22,15 @@ function Header() {
         >
           New Post
         </NavLink>
+        <span className="mx-2">|</span>
+        <NavLink
+          to="/todos"
+          className={({ isActive }) =>
+            `text-white hover:underline ${isActive ? "text-orange-700" : "text-gray-700"}`
+          }
+        >
+          Todos
+        </NavLink>
       </h1>
     </header>
   )
