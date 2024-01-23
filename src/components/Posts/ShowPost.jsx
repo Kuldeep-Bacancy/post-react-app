@@ -14,9 +14,10 @@ function ShowPost() {
     queryFn: () => getPost(postId)
   })
 
-  const { data: comments } = useQuery({
+  const { data: comments, refetch } = useQuery({
     queryKey: ['comments', postId],
-    queryFn: () => getPostComments(postId)
+    queryFn: () => getPostComments(postId),
+    enabled: false
   })
 
   if (isPending || isFetching || isLoading) return <Loader />
@@ -50,9 +51,8 @@ function ShowPost() {
       </div>
 
       <div className="mt-4">
-        <h2 className="text-xl font-semibold mb-2">Comments</h2>
+        <button className='text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' onClick={refetch}>Show Comments</button>
         <div className="border-t border-gray-300 py-2">
-          {/* Map through comments and render each comment */}
           {comments?.comments?.map((comment) => (
             <div key={comment.id} className="mb-2">
               <span className="font-semibold">{comment?.user?.username}</span>
